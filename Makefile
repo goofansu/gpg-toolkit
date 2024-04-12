@@ -1,6 +1,9 @@
 publish:
 	@gpg --export 3C2DE0F1FB93D0EE | curl -T - https://keys.openpgp.org
 
+armor:
+	@gpg --armor --export 3C2DE0F1FB93D0EE
+
 pubkey:
 	@gpg --export 3C2DE0F1FB93D0EE > pubkey.gpg
 
