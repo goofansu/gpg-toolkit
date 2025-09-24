@@ -1,29 +1,36 @@
-publish:
-	@gpg --export 3C2DE0F1FB93D0EE | curl -T - https://keys.openpgp.org
+.PHONY: help publish pubkey privkey backup restore
 
-armor-pubkey:
-	@gpg --armor --export 3C2DE0F1FB93D0EE
+help:
+	@echo "GPG Toolkit Makefile"
+	@echo "===================="
+	@echo "Usage: make <target> GPG_ID=<your-gpg-key-id>"
+	@echo ""
+	@echo "Targets:"
+	@echo "  help             - Show this help message"
+	@echo "  publish          - Export and upload public key to keys.openpgp.org"
+	@echo "  pubkey           - Export public key to pubkey.gpg file"
+	@echo "  privkey          - Export private key to privkey.gpg file"
+	@echo "  backup           - Create paperkey text backup from private key"
+	@echo "  restore          - Restore private key from paperkey backup to privkey-restored.gpg"
 
-armor-privkey:
-	@gpg --armor --export-secret-key 3C2DE0F1FB93D0EE
+	@echo ""
+	@echo "Example: make publish GPG_ID=3C2DE0F1FB93D0EE"
 
-pubkey:
-	@gpg --export 3C2DE0F1FB93D0EE > pubkey.gpg
+# Environment variable validation
+env-GPG_ID:
+	@if [ -z '${GPG_ID}' ]; then echo 'ERROR: variable GPG_ID not set. Usage: make <target> GPG_ID=<your-gpg-key-id>' && exit 1; fi
 
-privkey:
-	@gpg --export-secret-key 3C2DE0F1FB93D0EE > privkey.gpg
+publish: env-GPG_ID
+	@gpg --export $(GPG_ID) | curl -T - https://keys.openpgp.org
 
-paperkey: privkey
+pubkey: env-GPG_ID
+	@gpg --export $(GPG_ID) > pubkey.gpg
+
+privkey: env-GPG_ID
+	@gpg --export-secret-key $(GPG_ID) > privkey.gpg
+
+backup: privkey
 	@paperkey --secret-key privkey.gpg --output paperkey.txt
 
-paperkey-restore: pubkey
-	@paperkey --pubring pubkey.gpg --secrets paperkey.txt --output restored.gpg
-
-qrcode: privkey
-	@paperkey --secret-key privkey.gpg --output-type raw | base64 | qrencode -o qrcode.png
-
-qrcode-restore: pubkey
-	@zbarimg -q qrcode.png | \
-		 cut -d':' -f2 | \
-		 base64 --decode | \
-		 paperkey --pubring pubkey.gpg --output restored.gpg
+restore: pubkey
+	@paperkey --pubring pubkey.gpg --secrets paperkey.txt --output privkey-restored.gpg

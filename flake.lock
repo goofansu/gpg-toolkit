@@ -5,11 +5,11 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1694529238,
-        "narHash": "sha256-zsNZZGTGnMOf9YpHKJqMSsa0dXbfmxeoJ7xHlrt+xmY=",
+        "lastModified": 1731533236,
+        "narHash": "sha256-l0KFg5HjrsfsO/JpG+r7fRrqm12kzFHyUHqHCVpMMbI=",
         "owner": "numtide",
         "repo": "flake-utils",
-        "rev": "ff7b65b44d01cf9ba6a71320833626af21126384",
+        "rev": "11707dc2f618dd54ca8739b309ec4fc024de578b",
         "type": "github"
       },
       "original": {
@@ -20,16 +20,16 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1700097215,
-        "narHash": "sha256-ODQ3gBTv1iHd7lG21H+ErVISB5wVeOhd/dEogOqHs/I=",
-        "owner": "NixOS",
+        "lastModified": 1758611749,
+        "narHash": "sha256-nZPZ+OVAJxt0xGVuw9cUdIRTsMi18zZhB9X4Y1+hH6w=",
+        "owner": "nixOS",
         "repo": "nixpkgs",
-        "rev": "9fb122519e9cd465d532f736a98c1e1eb541ef6f",
+        "rev": "17a76721a11c02a03aa0874690847a3e9df01cd4",
         "type": "github"
       },
       "original": {
-        "owner": "NixOS",
-        "ref": "nixpkgs-23.05-darwin",
+        "owner": "nixOS",
+        "ref": "nixpkgs-25.05-darwin",
         "repo": "nixpkgs",
         "type": "github"
       }
