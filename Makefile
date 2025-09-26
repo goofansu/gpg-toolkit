@@ -31,6 +31,7 @@ privkey: env-GPG_ID
 
 backup: privkey
 	@paperkey --secret-key privkey.gpg --output paperkey.txt
+	@rm privkey.gpg
 
-restore: pubkey
+restore:
 	@paperkey --pubring pubkey.gpg --secrets paperkey.txt --output privkey-restored.gpg
